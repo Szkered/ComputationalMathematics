@@ -62,6 +62,11 @@ function sum_if(x,y)
     return s
 end
 
+function sort_sum_if(x,y)
+    x = sort(x)
+    return sum_if(x,y)
+end
+
 function branch_prediction()
     # Based on https://stackoverflow.com/q/11227809
 
@@ -71,6 +76,7 @@ function branch_prediction()
     y = rand(n)
 
     @btime sum_if($x_rand,$y)
+    @btime sort_sum_if($x_rand,$y)
     @btime sum_if($x_sort,$y)
     # `sum_if(x,y)` is much faster if `x` is sorted because branch prediction
     # is easier if `x` is of the form `x = [0,0, ..., 0,0,1,1, ... 1,1]`
