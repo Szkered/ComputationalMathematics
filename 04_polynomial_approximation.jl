@@ -40,7 +40,7 @@ function piecewise_interpolation_example()
     a,b = 0,2π
     f = sin
     # f = x -> abs(x - sqrt(2))
-    m = 2  # number of intervals
+    m = 10  # number of intervals
     n = 2  # polynomial degree
     y = LinRange(a,b,m+1)
 
@@ -130,13 +130,13 @@ function piecewise_interpolation_convergence()
 end
 
 function node_polynomial()
-    n = 5
+    n = 3
     # n = 15
 
     clf()
     for (label,x) = (
-        ( "uniform", LinRange(-1,1,2n+1)[2:2:end-1] ),
-        # ( "Chebyshev", cos.(LinRange(0,π,2n+1)[2:2:end-1]) ),
+        # ( "uniform", LinRange(-1,1,2n+1)[2:2:end-1] ),
+        ( "chebyshev", cos.(LinRange(0,π,2n+1)[2:2:end-1]) ),
     )
         l = xx->prod(xx .- x)
         xx = LinRange(-1,1,1000)
@@ -156,14 +156,17 @@ end
 function interpolant()
     n = 5
     # n = 15
-    f = x->1/(1 + 4*x^2)
+
+    # f = x->1/(1 + 4*x^2)
+
+    f = x -> abs(1 - x^3)
 
     clf()
     xx = LinRange(-1,1,1000)
     plot(xx, f.(xx), "k-")
     for (label,x) = (
-        ( "uniform", LinRange(-1,1,2n+1)[2:2:end-1] ),
-        # ( "Chebyshev", cos.(LinRange(0,π,2n+1)[2:2:end-1]) ),
+        # ( "uniform", LinRange(-1,1,2n+1)[2:2:end-1] ),
+        ( "Chebyshev", cos.(LinRange(0,π,2n+1)[2:2:end-1]) ),
     )
         plot(xx, interpolate.(Ref(x), Ref(f.(x)), xx), label=label)
         plot(x, f.(x), "ko", ms=4)
@@ -208,13 +211,24 @@ end
 
 function convergence_abs()
     n = 2 .^ (1:10)
-    f = abs
+    # n = (1:40)
+    # f = abs
+    # f = x -> abs(x) ^3
+    # f = x -> abs(1-2*abs(x)^3) ^3
+    # f = x -> 1 / abs(1 - x^3 / 4)
+    # f = x -> 1 / abs(1 - x^3 / 2)
+    # f = x -> abs(1 - x^3)
+    # f = x -> abs(1 - 2*x^3)
+    f = x -> abs(1 - x)
     errors = chebyshev_interpolation_error.(f,n)
 
     clf()
     loglog(n, errors, "-o", ms=3)
+    # semilogy(n, errors, "-o", ms=3)
     nn = (8,n[end])
     loglog(nn, 1.2.*nn.^-1,"k--")
+    # loglog(nn, 1.2.*nn.^-40,"k--")
+    # semilogy(nn, 8.0 .*nn.^-3,"k--")
     xlabel(L"n")
     ylabel(L"\|f - p\|_{[-1,1]}")
     display(gcf())

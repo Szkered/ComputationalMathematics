@@ -12,8 +12,13 @@ Evaluate `p(x)` where `p` is the unique polynomial specified by the
 interpolation problem on the assignment sheet.
 """
 function hermite_interpolate(f,x)
-    # TODO: Your code here
-    return NaN
+    l1 = x -> 2*x^3 - 3*x^2 + 1
+    l2 = x -> x * (1-x)^2
+    l3 = x -> -2*x^3 + 3*x^2
+    l4 = x -> (x-1) * x^2
+    l = [l1, l2, l3, l4]
+
+    return sum([l[i](x)*f[i] for i in (1:4)])
 end
 
 function draw_heart()
@@ -52,8 +57,23 @@ end
 
 using FastGaussQuadrature
 function composite_gauss(f,a,b,m,n)
-    # TODO: Your code here
-    return NaN
+    # Quadrature rule for [-1,1]
+    x,w = FastGaussQuadrature.gausslegendre(n)
+
+    y = LinRange(a,b,m+1)
+
+    total = 0.0
+
+    for k = 1:m
+        # Map to [ai,bi]
+        ai, bi = y[k], y[k+1]
+        xi = (bi+ai)/2 .+ (bi-ai)/2 .* x
+        wi = (bi-ai)/2 .* w
+        total += sum(f.(xi).*wi)
+    end
+
+    # Evaluate
+    return total
 end
 
 function composite_gauss_convergence()
