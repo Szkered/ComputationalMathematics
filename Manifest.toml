@@ -1,5 +1,11 @@
 # This file is machine-generated - editing it directly is not advised
 
+[[AMD]]
+deps = ["Libdl", "LinearAlgebra", "SparseArrays", "Test"]
+git-tree-sha1 = "fc66ffc5cff568936649445f58a55b81eaf9592c"
+uuid = "14f7f29c-3bd6-536c-9a0b-7339e30b5a3e"
+version = "0.4.0"
+
 [[AbstractFFTs]]
 deps = ["LinearAlgebra"]
 git-tree-sha1 = "051c95d6836228d120f5f4b984dd5aba1624f716"
@@ -37,6 +43,12 @@ deps = ["Base64", "Dates", "DelimitedFiles", "Distributed", "InteractiveUtils", 
 git-tree-sha1 = "215f1c81cfd1c5416cd78740bff8ef59b24cd7c0"
 uuid = "34da2185-b29b-5c13-b0c7-acf172513d20"
 version = "3.15.0"
+
+[[CompilerSupportLibraries_jll]]
+deps = ["Libdl", "Pkg"]
+git-tree-sha1 = "7c4f882c41faa72118841185afc58a2eb00ef612"
+uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
+version = "0.3.3+0"
 
 [[CompilerSupportLibraries_jll]]
 deps = ["Libdl", "Pkg"]
@@ -214,6 +226,12 @@ git-tree-sha1 = "8c08d0c7812169e438a8478dae2a529377ad13f7"
 uuid = "ae029012-a4dd-5104-9daa-d747884805df"
 version = "1.0.2"
 
+[[Roots]]
+deps = ["Printf"]
+git-tree-sha1 = "1211c7c1928c1ed29cdcef65979b7a791e3b9fbe"
+uuid = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
+version = "1.0.5"
+
 [[SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 
@@ -252,12 +270,6 @@ deps = ["DataAPI", "DataStructures", "LinearAlgebra", "Missings", "Printf", "Ran
 git-tree-sha1 = "d72a47c47c522e283db774fc8c459dd5ed773710"
 uuid = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 version = "0.33.1"
-
-[[TaylorSeries]]
-deps = ["InteractiveUtils", "LinearAlgebra", "Markdown", "Requires", "SparseArrays"]
-git-tree-sha1 = "192cf2208fd4ffed35d675513c0d5807cfbcaae1"
-uuid = "6aa5eb33-94cf-58f4-a9d0-e4b2c4fc25ea"
-version = "0.10.6"
 
 [[Test]]
 deps = ["Distributed", "InteractiveUtils", "Logging", "Random"]
