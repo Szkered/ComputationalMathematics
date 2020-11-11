@@ -56,9 +56,27 @@ end
 
 
 function conjugate_gradients(A,b,m)
-    # TODO: Your code here!
+    x = 0.0
+    p = r = b
+    for k = 1:m
+        a = (transpose(r)*r) / (transpose(p)*A*p)
+        x = x .+ a*p
+        r_k = r - a*A*p
+        β = (transpose(r_k)*r_k) / (transpose(r)*r)
+        p = r_k + β*p
+        r = r_k
+    end
+    return x
 end
 
 function test()
-    # TODO: Your code here!
+    n = 10
+    m = 12
+    A = rand(n,n)
+    A = transpose(A)*A  # make A positive semidefinite
+    b = rand(n)
+    x = conjugate_gradients(A,b,m)
+
+    @assert isapprox(A*x, b), "Test failed"
+    println("Test passed")
 end
