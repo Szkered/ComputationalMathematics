@@ -1,12 +1,25 @@
 using PyPlot
+using LinearAlgebra
 using Roots # Install by typing `] add Roots`
 
+function euler_step(f,y0,t)
+    return y0 + f(y0)*t
+end
+
 function simpson_step(f,y0,t)
-    # TODO: Your code here!
+    f1 = t*f(y0)
+    f2 = t*f(y0 + f1/2)
+    f3 = t*f(y0 + f1)
+    return y0 + f1/6 + f2*4/6 + f3/6
 end
 
 function implicit_simpson_step(f,y0,t)
-    # TODO: Your code here!
+    f1 = t*f(y0)
+    f2 = t*f(y0 + f1/2)
+    return find_zero(
+        y -> y0 + f1/6 + f2*4/6 + f(y)*t/6 - y,
+        euler_step(f,y0,t)
+    )
 end
 
 function integrate(f,y0,T,n,step)
@@ -27,8 +40,8 @@ function convergence()
     clf()
     n = round.(Int, 10.0.^LinRange(1,3,30))
     for (name,step) in (
-        ("explicit", simpson_step),
-        # ("implict", implicit_simpson_step),
+        # ("explicit", simpson_step),
+        ("implict", implicit_simpson_step),
     )
         error = [begin
             ỹ = integrate(f,y0,T,n, step)
